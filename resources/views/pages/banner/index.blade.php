@@ -4,15 +4,19 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h1 class="page-title">Todo List</h1>
+                <h1 class="page-title">Banner List</h1>
             </div>
             <div class="col-lg-12 mt-5">
-                <form action="{{ route('todo.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('banner.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
                         <div class="col-lg-8">
                             <div class="form-group">
-                                <input class="form-control" name="title" type="text" placeholder="Enter Task">
+                                <input class="form-control" name="title" type="text" placeholder="Enter Banner Title">
+                            </div>
+                            <div class="mt-3 form-group">
+                                <input class="form-control" name="images" type="file" placeholder="Enter Banner Title"
+                                accept="image/jpg, image/jpeg, image/png">
                             </div>
                         </div>
                         <div class="col-lg-4">
@@ -22,7 +26,7 @@
                 </form>
             </div>
             <div class="col-lg-12 mt-5">
-                <div class="table-responsive-lg">
+                <div>
                     <table class="table">
                         <thead>
                           <tr>
@@ -33,24 +37,24 @@
                           </tr>
                         </thead>
                         <tbody>
-                            @foreach ($tasks as $key => $task)
+                            @foreach ($banners as $key => $banner)
                                 <tr>
                                     <th scope="row">{{ ++$key }}</th>
-                                    <td>{{ $task->title }}</td>
+                                    <td>{{ $banner->title }}</td>
                                     <td>
-                                        @if ($task->done == 0)
+                                        @if ($banner->done == 0)
                                             <span class="btn btn-warning btn-sm">Not Completed</span>
                                         @else
                                         <span class="btn btn-success btn-sm">Completed</span>
                                         @endif
                                     </td>
                                     <td>
-                                        @if ($task->done == 0)
-                                            <a href="{{ route('todo.done', $task->id) }}" class="btn btn-success">Done</a>
+                                        @if ($banner->done == 0)
+                                            <a href="{{ route('banner.status', $banner->id) }}" class="btn btn-success">Done</a>
                                         @else
-                                            <a href="{{ route('todo.done', $task->id) }}" class="btn btn-warning">Undo</a>
+                                            <a href="{{ route('banner.status', $banner->id) }}" class="btn btn-warning">Undo</a>
                                         @endif
-                                        <a href="{{ route('todo.delete', $task->id) }}" class="btn btn-danger">Delete</a>
+                                        <a href="{{ route('banner.delete', $banner->id) }}" class="btn btn-danger">Delete</a>
                                     </td>
                                 </tr>
                             @endforeach
